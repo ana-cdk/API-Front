@@ -1,10 +1,9 @@
 // Imports
-import logo from './logo.svg';
 import './App.css';
-import Contador from './components/Contador';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './AppRoutes';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 // Component
 function App() {
@@ -18,7 +17,7 @@ function App() {
           <AppRoutes />
         </main>
         <hr/>
-        <footer>Feito na UTF</footer>
+        <Footer></Footer>
 
       </BrowserRouter>      
     </>
