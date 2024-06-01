@@ -109,7 +109,7 @@ function SensorForm() {
             setName('');
             setSelectedDevice('');
             console.log(id ? 'Sensor atualizado com sucesso!' : 'Sensor criado com sucesso!');
-            navigate('/device');
+            navigate(`/device/details/${selectedDevice}`);
         } catch (error) {
             console.error('Erro:', error.message);
         }

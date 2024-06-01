@@ -9,6 +9,8 @@ import DeviceList from "./views/device/DeviceList";
 import DeviceDetails from "./views/device/DeviceDetails";
 import ActuatorForm from "./views/actuator/ActuatorForm";
 import SensorForm from "./views/sensor/SensorForm";
+import SensorReadings from './views/sensor/SensorReadings';
+import AddReading from './views/sensor/AddReading';
 import NotFound from "./views/NotFound";
 import Login from "./views/auth/Login"
 
@@ -32,6 +34,8 @@ const AppRoutes = () => {
             <Route path="/sensor/new" element={<SensorForm />}></Route>
             <Route path="/actuator/:id" element={<ActuatorForm />}></Route>
             <Route path="/sensor/:id" element={<SensorForm />}></Route>
+            <Route path="/sensor/:idSensor/readings" element={<SensorReadings />} />
+            <Route path="/sensor/:idSensor/readings/new" element={<AddReading />} />
         </Routes>
     );
 }

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function UserForm() {
     const [firstName, setFirstName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -27,11 +29,11 @@ function UserForm() {
                 throw new Error('Erro ao criar usuário');
             }
 
-            // Se o usuário foi criado com sucesso, limpa os campos do formulário
             setFirstName('');
             setEmail('');
             setPassword('');
             console.log('Usuário criado com sucesso!');
+            navigate('/auth')
         } catch (error) {
             console.error('Erro:', error.message);
         }

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import ReadingsGraphic from "./dashboard/ReadingsGraphic";
 
 function Home() {
     
@@ -14,7 +15,7 @@ function Home() {
 
     return(
         <>
-            Dashboard
+            <ReadingsGraphic></ReadingsGraphic>
            
             <button className="btn btn-secondary" onClick={handleGateway}>Gateways</button>
             <button className="btn btn-secondary" onClick={handleDispositivo}>Dispositivos</button>
