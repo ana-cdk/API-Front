@@ -114,7 +114,7 @@ function DeviceForm() {
             setLoc('');
             setSelectedGateway('');
             console.log(id ? 'Dispositivo atualizado com sucesso!' : 'Dispositivo criado com sucesso!');
-            navigate('/dispositivo');
+            navigate('/device');
         } catch (error) {
             console.error('Erro:', error.message);
         }

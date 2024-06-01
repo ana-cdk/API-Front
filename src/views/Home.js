@@ -7,11 +7,17 @@ function Home() {
     function handleGateway() {
         navigate('/gateway');
     }
+
+    function handleDispositivo(){
+        navigate('/device');
+    }
+
     return(
         <>
             Dashboard
            
             <button className="btn btn-secondary" onClick={handleGateway}>Gateways</button>
+            <button className="btn btn-secondary" onClick={handleDispositivo}>Dispositivos</button>
         </>
     );
 }
