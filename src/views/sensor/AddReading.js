@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function AddReading() {
@@ -8,7 +8,7 @@ function AddReading() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         const token = localStorage.getItem('jwtToken');
         if (!token) {
             navigate('/auth');
@@ -17,8 +17,10 @@ function AddReading() {
 
         const reading = {
             valor: valor,
-            idSensor: parseInt(idSensor)
+            idSensor: idSensor // Aninhando o sensor
         };
+
+        console.log('Request Body:', JSON.stringify(reading));
 
         fetch('http://localhost:8081/leitura', {
             method: 'POST',
@@ -66,7 +68,6 @@ function AddReading() {
                 </div>
                 <button type="submit" className="btn btn-primary">Adicionar Leitura</button>
             </form>
-           
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import ReadingsGraphic from "./dashboard/ReadingsGraphic";
+import DeviceSensorReadings from "./dashboard/DeviceSensorReadings";
 
 function Home() {
     
@@ -15,7 +15,7 @@ function Home() {
 
     return(
         <>
-            <ReadingsGraphic></ReadingsGraphic>
+            <DeviceSensorReadings />
            
             <button className="btn btn-secondary" onClick={handleGateway}>Gateways</button>
             <button className="btn btn-secondary" onClick={handleDispositivo}>Dispositivos</button>

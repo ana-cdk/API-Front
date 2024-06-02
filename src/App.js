@@ -12,11 +12,9 @@ function App() {
       <BrowserRouter>
 
         <Header></Header>
-        <hr/>
         <main>
           <AppRoutes />
         </main>
-        <hr/>
         <Footer></Footer>
 
       </BrowserRouter>      

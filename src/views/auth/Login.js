@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faUser, faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -44,25 +47,77 @@ function Login() {
 
     return (
         <>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
-                <fieldset className="form-group">
-                    <label className="form-label">E-mail</label>
-                    <input type="text" name="email" 
-                        className="form-control" placeholder="ana@hotmail.com"
-                        value={email} onChange={(e) => setEmail(e.target.value)} />
-                </fieldset>
-                <fieldset className="form-group">
-                    <label className="form-label">Senha</label>
-                    <input type="password" name="password" 
-                        className="form-control"
-                        value={password} onChange={(e) => setPassword(e.target.value)} />
-                </fieldset>
-                <div className="pagination justify-content-center mt-4">
-                    <button type="submit" className="btn btn-success me-1">Entrar</button>
-                    <button type="button" className="btn btn-danger">Voltar</button>
-                </div>
-            </form>
+            <main id="container-form-login">
+                <form id="login_form" onSubmit={handleLogin}>
+
+                    <div id="form_header">
+                        <h1>Login</h1>
+                    </div>
+
+                    <div id="social-media">
+                        <a><FontAwesomeIcon icon={faFacebook}/></a>
+                        <a><FontAwesomeIcon icon={faGoogle}/></a>
+                        <a><FontAwesomeIcon icon={faGithub}/></a>
+                    </div>
+               
+                    <div id="inputs">
+
+                        <fieldset className="input-box">
+                            <label className="form-label">E-mail
+                                <div className="input-field">
+                                    <FontAwesomeIcon icon={faEnvelope} className="fa-icon"/>
+                                    <input type="text" name="email" 
+                                    className="form-control" placeholder="E-mail"
+                                    value={email} onChange={(e) => setEmail(e.target.value)} />
+                                </div>
+                            </label>
+                        </fieldset>
+
+                        <fieldset className="input-box">
+                            <label className="form-label">Senha
+                                <div className="input-field">
+                                    <FontAwesomeIcon icon={faKey} className="fa-icon"/> 
+                                    <input type="password" name="password" 
+                                    className="form-control"  placeholder="Insira a senha"
+                                    value={password} onChange={(e) => setPassword(e.target.value)} />
+                                </div>
+                            </label>
+                        </fieldset>
+
+                        
+                    </div>
+
+                    <div className="pagination justify-content-center mt-4">
+                        <button type="submit" className="custom-button btn-cadastro">Login</button>
+                    </div>
+
+                </form>   
+            </main>
+            
+
+
+
+            
+                    
+
+                    
+
+                    
+
+                        
+
+                        
+
+                      
+
+                        
+
+                    
+                
+
+
+
+
         </>
     );
 }

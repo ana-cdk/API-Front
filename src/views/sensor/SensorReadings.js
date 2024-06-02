@@ -8,12 +8,13 @@ function SensorReadings() {
 
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
+
         if (!token) {
             navigate('/auth');
             return;
         }
 
-        fetch(`http://localhost:8081/leitura?sensorId=${idSensor}`, {
+        fetch(`http://localhost:8081/sensor/${idSensor}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -28,7 +29,10 @@ function SensorReadings() {
             }
             return response.json();
         })
-        .then(data => setReadings(data))
+        .then(data => {
+            console.log('Data fetched:', data); // Adicionando log para verificar os dados
+            setReadings(data.leituras);
+        })
         .catch(e => console.log(e));
     }, [idSensor, navigate]);
 
@@ -49,8 +53,7 @@ function SensorReadings() {
             ) : (
                 <p>Nenhuma leitura encontrada.</p>
             )}
-             <button type="button" className="btn btn-primary" onClick={handleAddReading}>Adicionar Nova Leitura</button>
-            
+            <button type="button" className="btn btn-primary" onClick={handleAddReading}>Adicionar Nova Leitura</button>
         </div>
     );
 }
