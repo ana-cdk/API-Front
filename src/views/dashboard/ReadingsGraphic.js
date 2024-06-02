@@ -15,6 +15,7 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, TimeScal
 
 const ReadingsGraphic = ({ sensorId }) => {
   const [chartData, setChartData] = useState({ datasets: [] });
+  const [sensorName, setSensorName] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -43,11 +44,13 @@ const ReadingsGraphic = ({ sensorId }) => {
         const labels = data.leituras.map(leitura => leitura.data);
         const valores = data.leituras.map(leitura => leitura.valor);
 
+        setSensorName(data.nome); // Define o nome do sensor
+
         setChartData({
           labels: labels,
           datasets: [
             {
-              label: `Leituras do Sensor ${sensorId}`,
+              label: `Leituras ${data.nome}`, // Usa o nome do sensor no label do gráfico
               data: valores,
               borderColor: 'rgba(0, 0, 255, 1)',
               borderWidth: 1
@@ -64,7 +67,7 @@ const ReadingsGraphic = ({ sensorId }) => {
 
   return (
     <div style={{ width: '80%', margin: '0 auto' }}>
-      <h2>Leituras do Sensor {sensorId}</h2>
+      <h2>Leituras {sensorName}</h2> {/* Usa o nome do sensor no título */}
       {error ? <p>Error: {error}</p> : <Line data={chartData} options={{
         scales: {
           x: {
