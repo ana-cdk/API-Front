@@ -5,10 +5,11 @@ import { URL_API } from "../../Const";
 function DeviceList() {
     const [devices, setDevices] = useState([]);
     const navigate = useNavigate();
+    const userId = localStorage.getItem('userId'); // Obtém o ID do usuário autenticado do armazenamento local
 
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
-        fetch(`${URL_API}dispositivo`, {
+        fetch(`${URL_API}dispositivo/user/${userId}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -28,7 +29,7 @@ function DeviceList() {
                 setDevices(res);
             })
             .catch(e => console.log(e));
-    }, []);
+    }, [navigate, userId]);
 
     function handleDetails(id) {
         navigate(`/device/details/${id}`);
@@ -39,7 +40,7 @@ function DeviceList() {
     }
 
     function handleDelete(id) {
-        if (window.confirm('Você tem certeza que deseja deletar este gateway?')) {
+        if (window.confirm('Você tem certeza que deseja deletar este dispositivo?')) {
             const token = localStorage.getItem('jwtToken');
             fetch(`${URL_API}dispositivo/${id}`, {
                 method: 'DELETE',

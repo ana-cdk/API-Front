@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import styles from '../../styles/GatewayForm.module.css'
+
 
 function GatewayForm() {
     const [name, setName] = useState('');
@@ -8,6 +10,30 @@ function GatewayForm() {
     const [userId, setUserId] = useState(null);
     const { id } = useParams(); // Para obter o ID do gateway a ser editado
     const navigate = useNavigate();
+
+    const [nameError, setNameError] = useState('');
+    const [enderecoError, setEnderecoError] = useState('');
+    const [descError, setDescError] = useState('');
+
+    const handleInputChange = (fieldName, value) => {
+        switch (fieldName) {
+            case 'name':
+                setName(value);
+                setNameError(value ? '' : 'Campo obrigatório');
+                break;
+            case 'endereco':
+                setEndereco(value);
+                setEnderecoError(value ? '' : 'Campo obrigatório');
+                break;
+            case 'desc':
+                setDesc(value);
+                setDescError(value ? '' : 'Campo obrigatório');
+                break;
+            default:
+                break;
+        }
+    };
+
 
     useEffect(() => {
         const storedUserId = localStorage.getItem('userId');
@@ -38,8 +64,39 @@ function GatewayForm() {
         }
     }, [id]);
 
+    const validateForm = () => {
+        let isValid = true;
+
+        if (!name.trim()) {
+            setNameError('Campo obrigatório');
+            isValid = false;
+        } else {
+            setNameError('');
+        }
+
+        if (!endereco.trim()) {
+            setEnderecoError('Campo obrigatório');
+            isValid = false;
+        } else {
+            setEnderecoError('');
+        }
+
+        if (!desc.trim()) {
+            setDescError('Campo obrigatório');
+            isValid = false;
+        } else {
+            setDescError('');
+        }
+
+        return isValid;
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
 
         const data = {
             nome: name,
@@ -67,7 +124,7 @@ function GatewayForm() {
             setDesc('');
             setEndereco('');
             console.log(id ? 'Gateway atualizado com sucesso!' : 'Gateway criado com sucesso!');
-            navigate('/'); // Redirecionar após salvar
+            navigate('/gateway'); // Redirecionar após salvar
         } catch (error) {
             console.error('Erro:', error.message);
         }
@@ -75,31 +132,49 @@ function GatewayForm() {
 
     return (
         <>
-            <h2>{id ? 'Editar Gateway' : 'Criar Gateway'}</h2>
-            <form onSubmit={handleSubmit}>
-                <fieldset className="form-group">
-                    <label htmlFor="name" className="form-label">Nome</label>
-                    <input type="text" id="name" name="name"
-                        className="form-control"
-                        value={name} onChange={(e) => setName(e.target.value)} />
-                </fieldset>
-                <fieldset className="form-group">
-                    <label htmlFor="desc" className="form-label">Descrição</label>
-                    <input type="text" id="desc" name="desc"
-                        className="form-control"
-                        value={desc} onChange={(e) => setDesc(e.target.value)} />
-                </fieldset>
-                <fieldset className="form-group">
-                    <label htmlFor="endereco" className="form-label">Endereço</label>
-                    <input type="text" id="endereco" name="endereco"
-                        className="form-control"
-                        value={endereco} onChange={(e) => setEndereco(e.target.value)} />
-                </fieldset>
-                <div className="pagination justify-content-center mt-4">
-                    <button type="submit" className="btn btn-success me-1">Salvar</button>
-                    <button type="button" className="btn btn-secondary" onClick={() => navigate('/gateway')}>Cancelar</button>
+        
+        <div className={styles.body}>
+                <div className={styles.container}>
+                    <section className={styles.header}>
+                        <h2>{id ? 'Editar Gateway' : 'Criar Gateway'}</h2>
+                    </section>
+
+                    <form id="form" className={styles.form}  onSubmit={handleSubmit}>
+
+                        <fieldset className={styles.formGroup}>
+                            <label htmlFor="name" className="formLabel">Nome do gateway</label>
+                            <input type="text" id="name" name="name" placeholder='Digite o nome do gateway...'
+                                 className={`${styles.formControl} ${nameError && styles.errorInput}`}
+                                value={name} onChange={(e) => handleInputChange('name', e.target.value)}/>
+                            <a className={styles.errorMessage}>{nameError}</a>
+                        </fieldset>
+
+                        <fieldset className={styles.formGroup}>
+                            <label htmlFor="endereco" className="formLabel">Endereço</label>
+                            <input type="text" id="endereco" name="endereco"
+                                className={`${styles.formControl} ${enderecoError && styles.errorInput}`} placeholder='Insira um endereço'
+                                value={endereco} onChange={(e) => handleInputChange('endereco', e.target.value)} /> 
+                            <a className={styles.errorMessage}>{enderecoError}</a>
+                        </fieldset>
+
+                        <fieldset className={styles.formGroup}>
+                            <label htmlFor="desc" className="formLabel">Descrição</label>
+                            <textarea type="text" id="desc" name="desc"
+                                className={`${styles.formControl} ${descError && styles.errorInput}`} placeholder='Insira uma pequena descrição...'
+                                value={desc} onChange={(e) => handleInputChange('desc', e.target.value)} />
+                            <a className={styles.errorMessage}>{descError}</a>
+                        </fieldset>
+
+                        
+
+                        <div className="pagination justify-content-center mt-4">
+                            <button type="submit" className="btn btn-success me-1">Salvar</button>
+                            <button type="button" className="btn btn-danger me-1" onClick={() => navigate('/gateway')}>Cancelar</button>
+                        </div>
+                    </form>
+                
                 </div>
-            </form>
+            </div>
         </>
     );
 }
