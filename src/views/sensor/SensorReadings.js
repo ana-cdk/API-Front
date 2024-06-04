@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { URL_API } from "../../Const";
+import styles from '../../styles/Lists.module.css'
 
 function SensorReadings() {
     const { idSensor } = useParams();
@@ -42,20 +43,78 @@ function SensorReadings() {
     };
 
     return (
-        <div>
+
+        <>
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>Voltar</button>
-            <h2>Registros de Leituras do Sensor</h2>
-            {readings.length > 0 ? (
-                <ul>
-                    {readings.map((reading, index) => (
-                        <li key={index}>{reading.valor} em {new Date(reading.data).toLocaleString()}</li>
-                    ))}
-                </ul>
-            ) : (
-                <p>Nenhuma leitura encontrada.</p>
-            )}
-            <button type="button" className="btn btn-primary" onClick={handleAddReading}>Adicionar Nova Leitura</button>
-        </div>
+
+            <div className={`row ${styles.marginBottom}`}>
+                <div class="col-sm-1"></div>
+                    <div class="col-sm-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <div className={styles.headerRow}>
+                                    <h3>Registro de leituras</h3>
+                                    <i type="button" className="fa-solid fa-plus" onClick={handleAddReading}></i>
+                                </div>
+
+                                <table class="table table-striped">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Valor</th>
+                                            <th>Data</th>
+                                            <th>Hora</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {readings.length > 0 ? (
+                                            readings.map((reading, index) => (
+                                            <tr key={index}>
+                                                <td>{reading.valor}</td>
+                                                <td>{new Date(reading.data).toLocaleDateString()}</td>
+                                                <td>{new Date(reading.data).toLocaleTimeString()}</td>
+                                                <td className={styles.btnGap}>
+                                                    <i type="button" className={`fa-solid fa-pen-to-square ${styles.editIcon}`} ></i>
+                                                    <i type="button" className={`fa fa-trash ${styles.deleteIcon}`}></i>
+                                                </td>
+                                            </tr>
+                                            ))
+                                        ) : (
+                                            <tr>
+                                            <td colSpan="4">Nenhuma leitura encontrada.</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <div>
+                
+
+
+                
+                
+
+            </div>
+
+        </>
+
     );
 }
 

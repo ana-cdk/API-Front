@@ -1,22 +1,32 @@
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
 import DeviceSensorReadings from "./dashboard/DeviceSensorReadings";
+import '../styles/UserForm.css'; // Certifique-se de que este caminho esteja correto
 
 function Home() {
-    
-    const navigate = useNavigate();
+    const [showAlert, setShowAlert] = useState(false);
 
-    function handleGateway() {
-        navigate('/gateway');
-    }
+    useEffect(() => {
+        if (sessionStorage.getItem('showAlert') === 'true') {
+            setShowAlert(true);
+            sessionStorage.removeItem('showAlert');
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 2000);
+        }
+    }, []);
 
-    function handleDispositivo(){
-        navigate('/device');
-    }
-
-    return(
+    return (
         <>
+
+            
+            {showAlert && (
+                <div className="alert alert-success alert-container" role="alert">
+                    Usuário criado com sucesso!
+                </div>
+            )}
             <DeviceSensorReadings />
         </>
     );
 }
+
 export default Home;

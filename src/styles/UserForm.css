@@ -114,3 +114,19 @@
 }
 
 
+.alert-container {
+    position: fixed; /* Ajuste este valor para mover o alerta mais para baixo */
+    right: 10px;
+    z-index: 1050;
+    top: 8rem; /* Certifique-se de que o alerta fique acima de outros elementos */
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.error {
+    border-color: red !important;
+}
