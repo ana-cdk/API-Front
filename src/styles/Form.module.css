@@ -51,7 +51,7 @@
     margin-bottom: 4px;
 }
 
-.formGroup input{
+.formGroup input, .formGroup select, .formGroup textarea {
     display: block;
     width: 100%;
     border-radius: 8px;
@@ -59,15 +59,14 @@
     border: 2px solid #dfdfdf;
 }
 
-.formGroup textarea {
-    display: block;
-    width: 100%;
-    border-radius: 8px;
-    padding: 8px;
-    border: 2px solid #dfdfdf;
-}   
-
 .formGroup a{
+    position: absolute;
+    bottom: -10px;
+    left: 60%;
+
+}
+
+.formGroup span{
     position: absolute;
     bottom: -10px;
     left: 60%;
@@ -82,4 +81,8 @@
 
 .errorInput {
     border-color: red !important;
+}
+
+.btn{
+    background-color: green !important;
 }

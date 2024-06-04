@@ -1,0 +1,41 @@
+.headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Adicione margem se precisar de espaço abaixo */
+}
+
+.headerRow h3 {
+    margin: 0; /* Remove a margem padrão do h3 */
+}
+
+.headerRow i {
+    cursor: pointer;
+    color: green; 
+    font-size: 1.5rem;/* Adiciona um cursor pointer para indicar que o ícone é clicável */
+}
+
+
+.marginBottom {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.btnGap i {
+    margin-right: 15px;
+    font-weight: 700;
+    font-size: 1.1em; /* Adicione margem direita para espaçamento */
+}
+
+.btnGap i:last-child {
+    margin-right: 0;
+     /* Remove a margem do último ícone */
+}
+
+.editIcon {
+    color: #17a2b8;
+}
+
+.deleteIcon {
+    color: #dc3545;
+}

@@ -16,9 +16,6 @@ function Home() {
     return(
         <>
             <DeviceSensorReadings />
-           
-            <button className="btn btn-secondary" onClick={handleGateway}>Gateways</button>
-            <button className="btn btn-secondary" onClick={handleDispositivo}>Dispositivos</button>
         </>
     );
 }

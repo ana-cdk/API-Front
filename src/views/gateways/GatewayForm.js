@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import styles from '../../styles/GatewayForm.module.css'
+import styles from '../../styles/Form.module.css'
 
 
 function GatewayForm() {
@@ -132,8 +132,7 @@ function GatewayForm() {
 
     return (
         <>
-        
-        <div className={styles.body}>
+            <div className={styles.body}>
                 <div className={styles.container}>
                     <section className={styles.header}>
                         <h2>{id ? 'Editar Gateway' : 'Criar Gateway'}</h2>
@@ -152,7 +151,7 @@ function GatewayForm() {
                         <fieldset className={styles.formGroup}>
                             <label htmlFor="endereco" className="formLabel">Endereço</label>
                             <input type="text" id="endereco" name="endereco"
-                                className={`${styles.formControl} ${enderecoError && styles.errorInput}`} placeholder='Insira um endereço'
+                                className={`${styles.formControl} ${enderecoError && styles.errorInput}`} placeholder='Insira um endereço...'
                                 value={endereco} onChange={(e) => handleInputChange('endereco', e.target.value)} /> 
                             <a className={styles.errorMessage}>{enderecoError}</a>
                         </fieldset>

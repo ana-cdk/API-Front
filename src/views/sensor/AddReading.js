@@ -1,13 +1,46 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import styles from '../../styles/Form.module.css'
 
 function AddReading() {
     const [valor, setValor] = useState('');
     const { idSensor } = useParams();
     const navigate = useNavigate();
 
+    const [valorError, setValorError] = useState('');
+
+
+    const handleInputChange = (fieldName, value) => {
+        switch (fieldName) {
+            case 'valor':
+                setValor(value);
+                setValorError(value ? '' : 'Campo obrigatório');
+                break;
+            default:
+                break;
+        }
+    };
+
+
+    const validateForm = () => {
+        let isValid = true;
+
+        if (!valor.trim()) {
+            setValorError('Campo obrigatório');
+            isValid = false;
+        } else {
+            setValorError('');
+        }
+
+        return isValid;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
 
         const token = localStorage.getItem('jwtToken');
         if (!token) {
@@ -41,35 +74,52 @@ function AddReading() {
     };
 
     return (
-        <div>
-            <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>Voltar</button>
-            <h2>Adicionar Nova Leitura</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="valor">Valor</label>
-                    <input
-                        type="text"
-                        id="valor"
-                        value={valor}
-                        onChange={(e) => setValor(e.target.value)}
-                        className="form-control"
-                        required
-                    />
+
+            <>
+                 <div className={styles.body}>
+                    <div className={styles.container}>
+                        <section className={styles.header}>
+                            <h2>Adicionar Nova Leitura</h2>
+                        </section>
+
+                        <form id="form" className={styles.form}  onSubmit={handleSubmit}>
+
+                            <fieldset className={styles.formGroup}>
+                                <label htmlFor="valor" className="formLabel">Nome do sensor</label>
+                                <input type="text" id="valor" name="valor" placeholder='Digite o valor da nova leitura...'
+                                    className={`${styles.formControl} ${valorError && styles.errorInput}`}
+                                    value={valor} onChange={(e) => handleInputChange('valor', e.target.value)}/>
+                                <span className={styles.errorMessage}>{valorError}</span>
+                            </fieldset>
+
+
+                            <fieldset className={styles.formGroup}>
+                                <label htmlFor="device" className="formLabel">Id do Sensor</label>
+                                <input
+                                    type="number"
+                                    id="idSensor"
+                                    value={idSensor}
+                                    className="form-control"
+                                    disabled
+                                />
+                            </fieldset>
+
+                            <div className="pagination justify-content-center mt-4">
+                                <button type="submit" className="btn btn-success me-1">Salvar</button>
+                                <button type="button" className="btn btn-danger me-1" onClick={() => navigate(-1)}>Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="idSensor">ID do Sensor</label>
-                    <input
-                        type="number"
-                        id="idSensor"
-                        value={idSensor}
-                        className="form-control"
-                        disabled
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">Adicionar Leitura</button>
-            </form>
-        </div>
+            </>
+
+
+
+
+
     );
 }
 
 export default AddReading;
+
+

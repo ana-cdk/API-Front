@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import styles from '../../styles/Form.module.css';
 
 function ActuatorForm() {
     const [name, setName] = useState('');
     const [devices, setDevices] = useState([]);
     const [selectedDevice, setSelectedDevice] = useState('');
-    const { id } = useParams(); // Para obter o ID do atuador a ser editado
+    const { id } = useParams();
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+
+    const [nameError, setNameError] = useState('');
+
+    const handleInputChange = (fieldName, value) => {
+        switch (fieldName) {
+            case 'name':
+                setName(value);
+                setNameError(value ? '' : 'Campo obrigatório');
+                break;
+            default:
+                break;
+        }
+    };
 
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
@@ -65,13 +79,25 @@ function ActuatorForm() {
         }
     }, [id, navigate, searchParams]);
 
+    const validateForm = () => {
+        let isValid = true;
+
+        if (!name.trim()) {
+            setNameError('Campo obrigatório');
+            isValid = false;
+        } else {
+            setNameError('');
+        }
+
+        return isValid;
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-      //  if (!name || !selectedDevice) {
-       //     console.error('Todos os campos são obrigatórios');
-      //      return;
-       // }
+        if (!validateForm()) {
+            return;
+        }
 
         const data = {
             nome: name,
@@ -107,44 +133,65 @@ function ActuatorForm() {
             setName('');
             setSelectedDevice('');
             console.log(id ? 'Atuador atualizado com sucesso!' : 'Atuador criado com sucesso!');
-            navigate('/device');
+            navigate(`/device/details/${selectedDevice}`);
         } catch (error) {
             console.error('Erro:', error.message);
         }
     };
 
-    return (
-        <>
-            <h2>{id ? 'Editar Atuador' : 'Criar Atuador'}</h2>
-            <form onSubmit={handleSubmit}>
-                <fieldset className="form-group">
-                    <label htmlFor="name" className="form-label">Nome</label>
-                    <input type="text" id="name" name="name"
-                        className="form-control"
-                        value={name} onChange={(e) => setName(e.target.value)} />
-                </fieldset>
-                <fieldset className="form-group">
-                    <label htmlFor="device" className="form-label">Dispositivo</label>
-                    <select
-                        id="device"
-                        name="device"
-                        className="form-control"
-                        value={selectedDevice}
-                        onChange={(e) => setSelectedDevice(e.target.value)}
-                    >
-                        <option value="">Selecione um Dispositivo</option>
-                        {devices.map(device => (
-                            <option key={device.idDispositivo} value={device.idDispositivo}>{device.nome}</option>
-                        ))}
-                    </select>
+    const handleCancel = () => {
+        if (selectedDevice) {
+            navigate(`/device`);
+        } else {
+            navigate('/device');
+        }
+    }; 
 
-                </fieldset>
-                <div className="pagination justify-content-center mt-4">
-                    <button type="submit" className="btn btn-success me-1">Salvar</button>
-                    <button type="button" className="btn btn-secondary" onClick={() => navigate('/device')}>Cancelar</button>
-                </div>
-            </form>
-        </>
+    return (
+        <div className={styles.body}>
+            <div className={styles.container}>
+                <section className={styles.header}>
+                    <h2>{id ? 'Editar Atuador' : 'Criar Atuador'}</h2>
+                </section>
+
+                <form id="form" className={styles.form} onSubmit={handleSubmit}>
+                    <fieldset className={styles.formGroup}>
+                        <label htmlFor="name" className="formLabel">Nome do atuador</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            placeholder='Digite o nome do atuador...'
+                            className={`${styles.formControl} ${nameError && styles.errorInput}`}
+                            value={name} 
+                            onChange={(e) => handleInputChange('name', e.target.value)}
+                        />
+                        <span className={styles.errorMessage}>{nameError}</span>
+                    </fieldset>
+
+                    <fieldset className={styles.formGroup}>
+                        <label htmlFor="device" className="formLabel">Dispositivo</label>
+                        <select
+                            id="device"
+                            name="device"
+                            className={styles.formControl}
+                            value={selectedDevice}
+                            onChange={(e) => setSelectedDevice(e.target.value)}
+                        >
+                            <option value="">Selecione um Dispositivo</option>
+                            {devices.map(device => (
+                                <option key={device.idDispositivo} value={device.idDispositivo}>{device.nome}</option>
+                            ))}
+                        </select>
+                    </fieldset>
+
+                    <div className="pagination justify-content-center mt-4">
+                        <button type="submit" className="btn btn-success me-1">Salvar</button>
+                        <button type="button" className="btn btn-danger me-1" onClick={handleCancel}>Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     );
 }
 

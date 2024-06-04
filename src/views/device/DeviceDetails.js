@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import styles from '../../styles/Details.module.css'
 
 function DeviceDetails() {
     const { id } = useParams();
@@ -130,49 +131,122 @@ function DeviceDetails() {
     }
 
     return (
-        <div>
-            <h2>Detalhes do Dispositivo: {device.nome}</h2>
-            <p>Descrição: {device.descricao}</p>
-            <p>Localização: {device.localizacao}</p>
-            <p>Endereço: {device.endereco}</p>
-           {/*<p>Gateway: {device.idGateway ? device.gateway.nome : 'Não especificado'}</p> */}
-           <button type="button" className="btn btn-success" onClick={() => navigate(`/device/${id}`)}>Editar</button>
-            <button type="button" className="btn btn-danger ms-1" onClick={() => handleDeleteDevice(id)}>Excluir</button>
+        <>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             
-            <h3>Sensores</h3>
-            {sensors.length > 0 ? (
-                <ul>
-                    {sensors.map(sensor => (
-                        <li key={sensor.idSensor}>
-                            {sensor.nome}
-                            <button type="button" className="btn btn-info ms-1 mb-3" onClick={() => navigate(`/sensor/${sensor.idSensor}/readings`)}>Leituras</button>
-                            <button type="button" className="btn btn-success ms-1 mb-3" onClick={() => navigate(`/sensor/${sensor.idSensor}?deviceId=${id}`)}>Editar</button>
-                            <button type="button" className="btn btn-danger ms-1 mb-3" onClick={() => handleDeleteSensor(sensor.idSensor)}>Excluir</button>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>Nenhum sensor encontrado.</p>
-            )}
-            <button type="button" className="btn btn-primary ms-1" onClick={() => navigate(`/sensor/new?deviceId=${id}`)}>Adicionar Sensor</button>
+            <div className={styles.body}>
+                <div className={styles.container}>
+                    <section className={styles.header}>
+                        <h2>Detalhes do Dispositivo</h2>
+                    </section>
 
-            <h3>Atuadores</h3>
-            {actuators.length > 0 ? (
-                <ul>
-                    {actuators.map(actuator => (
-                        <li key={actuator.idAtuador}>
-                            {actuator.nome}
-                            <button type="button" className="btn btn-success ms-1 mb-3" onClick={() => navigate(`/actuator/${actuator.idAtuador}?deviceId=${id}`)}>Editar</button>
-                            <button type="button" className="btn btn-danger ms-1 mb-3" onClick={() => handleDeleteActuator(actuator.idAtuador)}>Excluir</button>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-               <p>Nenhum atuador encontrado.</p>
-            )}
-            <button type="button" className="btn btn-primary ms-1" onClick={() => navigate(`/actuator/new?deviceId=${id}`)}>Adicionar Atuador</button>
+                    <div className= {styles.card}>
+                        <h5>Nome: <p>{device.nome}</p> </h5>
+                        <h5>Descrição: <p>{device.descricao}</p> </h5>
+                        <h5>Localização: <p>{device.localizacao}</p> </h5>
+                        <h5>Endereço: <p>{device.endereco}</p> </h5>
+                    </div>
 
-        </div>
+                    <div className={`${styles.pagination} pagination justify-content-center mt-4`}>
+                        <button type="button" className="btn btn-info ms-1 mb-3" onClick={() => navigate(`/device/${id}`)}>
+                            <i type="button" className="fa-solid fa-pen-to-square"></i> Editar
+                        </button>
+
+                        <button type="button" className="btn btn-danger ms-1 mb-3" onClick={() => handleDeleteDevice(id)}>
+                            <i type="button" className="fa fa-trash delete-icon"></i> Excluir
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div className={`row ${styles.marginBottom}`}>
+                <div class="col-sm-1"></div>
+
+                <div class="col-sm-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div className={styles.headerRow}>
+                                <h3>Atuadores</h3>
+                                <i type="button" className="fa-solid fa-plus" onClick={() => navigate(`/actuator/new?deviceId=${id}`)}></i>
+                            </div>
+
+                            <div className={styles.listaItens}>
+                                {actuators.length > 0 ? (
+                                    <ul>
+                                        {actuators.map(actuator => (
+                                            <li key={actuator.idAtuador}>
+                                                <div className={styles.sensorInfo}>
+                                                    <div >
+                                                        <h5>Nome: <p>{actuator.nome}</p></h5>
+                                                    </div>
+                                                    
+                                                    <div className={styles.btns}>
+                                                        <button type="button" className="btn btn-info ms-1 mb-3" onClick={() => navigate(`/actuator/${actuator.idAtuador}?deviceId=${id}`)}>
+                                                            <i type="button" className="fa-solid fa-pen-to-square" onClick={() => navigate(`/device/${id}`)}></i> Editar
+                                                        </button>
+
+                                                        <button type="button" className="btn btn-danger ms-1 mb-3" onClick={() => handleDeleteActuator(actuator.idAtuador)}>
+                                                            <i type="button" className="fa fa-trash delete-icon" onClick={() => handleDeleteDevice(id)}></i> Excluir
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                <p>Nenhum atuador encontrado.</p>
+                                )}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-5">
+                    <div class="card">
+                    <div class="card-body">
+                        <div className={styles.headerRow}>
+                            <h3>Sensores</h3>
+                            <i type="button" className="fa-solid fa-plus" onClick={() => navigate(`/sensor/new?deviceId=${id}`)}></i>
+                        </div>
+                        
+                        <div className={styles.listaItens}>
+                            {sensors.length > 0 ? (
+                                <ul>
+                                    {sensors.map(sensor => (
+                                        <li key={sensor.idSensor}>
+                                            <div className={styles.sensorInfo}>
+                                                <div>
+                                                    <h5>Nome: <p>{sensor.nome}</p></h5>
+                                                </div>
+                                                <div className={styles.btns}>
+                                                    <button type="button" className="btn btn-secondary ms-1 mb-3" onClick={() => navigate(`/sensor/${sensor.idSensor}/readings`)}>Leituras</button>
+                                                    <button type="button" className="btn btn-info ms-1 mb-3" onClick={() => navigate(`/sensor/${sensor.idSensor}?deviceId=${id}`)}>
+                                                        <i className="fa-solid fa-pen-to-square"></i> Editar
+                                                    </button>
+                                                    <button type="button" className="btn btn-danger ms-1 mb-3" onClick={() => handleDeleteSensor(sensor.idSensor)}>
+                                                        <i className="fa fa-trash delete-icon"></i> Excluir
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p>Nenhum sensor encontrado.</p>
+                            )}   
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+                                    
+            
+            
+        </>
+
     );
 }
 
