@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { URL_API } from "../../Const";
 import styles from '../../styles/Form.module.css';
 
 function ActuatorForm() {
@@ -32,7 +33,7 @@ function ActuatorForm() {
         }
 
         // Buscar os dispositivos cadastrados
-        fetch('http://localhost:8081/dispositivo', {
+        fetch(`${URL_API}dispositivo`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -56,7 +57,7 @@ function ActuatorForm() {
         }
 
         if (id) {
-            fetch(`http://localhost:8081/atuador/${id}`, {
+            fetch(`http://localhost:8083/atuador/${id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -112,7 +113,7 @@ function ActuatorForm() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:8081/atuador${id ? `/${id}` : ''}`, {
+            const response = await fetch(`http://localhost:8083/atuador${id ? `/${id}` : ''}`, {
                 method: id ? 'PUT' : 'POST',
                 headers: {
                     'Content-Type': 'application/json',

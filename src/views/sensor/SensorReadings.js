@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { URL_API } from "../../Const";
 
 function SensorReadings() {
     const { idSensor } = useParams();
@@ -14,7 +15,7 @@ function SensorReadings() {
             return;
         }
 
-        fetch(`http://localhost:8081/sensor/${idSensor}`, {
+        fetch(`${URL_API}sensor/${idSensor}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`

@@ -3,6 +3,7 @@ import '../../styles/UserForm.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faUser, faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import { URL_API } from "../../Const";
 
 function UserForm() {
     const [firstName, setFirstName] = useState('');
@@ -19,7 +20,7 @@ function UserForm() {
         };
         
         try {
-            const response = await fetch('http://localhost:8081/pessoa', {
+            const response = await fetch(`${URL_API}pessoa`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

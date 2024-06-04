@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
+import { URL_API } from "../../Const";
 import {
   Chart as ChartJS,
   LineElement,
@@ -28,7 +29,7 @@ const ReadingsGraphic = ({ sensorId }) => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8081/sensor/${sensorId}`, {
+        const response = await fetch(`${URL_API}sensor/${sensorId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReadingsGraphic from './ReadingsGraphic';
+import { URL_API } from "../../Const";
 
 const DeviceSensorReadings = () => {
   const [devices, setDevices] = useState([]);
@@ -16,7 +17,7 @@ const DeviceSensorReadings = () => {
 
     const fetchDevices = async () => {
       try {
-        const response = await fetch(`http://localhost:8081/dispositivo/user/${userId}`, {
+        const response = await fetch(`${URL_API}dispositivo/user/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

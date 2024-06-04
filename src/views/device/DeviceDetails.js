@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from '../../styles/Details.module.css'
+import { URL_API } from "../../Const";
 
 function DeviceDetails() {
     const { id } = useParams();
@@ -16,7 +17,7 @@ function DeviceDetails() {
             return;
         }
 
-        fetch(`http://localhost:8081/dispositivo/${id}`, {
+        fetch(`${URL_API}dispositivo/${id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -50,7 +51,7 @@ function DeviceDetails() {
             return;
         }
 
-        fetch(`http://localhost:8081/dispositivo/${id}`, {
+        fetch(`${URL_API}dispositivo/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -79,7 +80,7 @@ function DeviceDetails() {
             return;
         }
 
-        fetch(`http://localhost:8081/sensor/${idSensor}`, {
+        fetch(`${URL_API}sensor/${idSensor}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -108,7 +109,7 @@ function DeviceDetails() {
             return;
         }
 
-        fetch(`http://localhost:8081/atuador/${idAtuador}`, {
+        fetch(`${URL_API}atuador/${idAtuador}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`

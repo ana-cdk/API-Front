@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from '../../styles/Form.module.css'
+import { URL_API } from "../../Const";
 
 function AddReading() {
     const [valor, setValor] = useState('');
@@ -55,7 +56,7 @@ function AddReading() {
 
         console.log('Request Body:', JSON.stringify(reading));
 
-        fetch('http://localhost:8081/leitura', {
+        fetch(`${URL_API}leitura`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

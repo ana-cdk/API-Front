@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faUser, faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import { URL_API } from "../../Const";
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ function Login() {
         };
 
         try {
-            const response = await fetch('http://localhost:8081/auth', {
+            const response = await fetch(`${URL_API}auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

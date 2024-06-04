@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import styles from '../../styles/Form.module.css'
+import { URL_API } from "../../Const";
 
 
 function SensorForm() {
@@ -40,7 +41,7 @@ function SensorForm() {
         }
 
         // Buscar os dispositivos cadastrados
-        fetch('http://localhost:8081/dispositivo', {
+        fetch(`${URL_API}dispositivo`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -64,7 +65,7 @@ function SensorForm() {
         }
 
         if (id) {
-            fetch(`http://localhost:8081/sensor/${id}`, {
+            fetch(`${URL_API}sensor/${id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -136,7 +137,7 @@ function SensorForm() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:8081/sensor${id ? `/${id}` : ''}`, {
+            const response = await fetch(`${URL_API}sensor${id ? `/${id}` : ''}`, {
                 method: id ? 'PUT' : 'POST',
                 headers: {
                     'Content-Type': 'application/json',

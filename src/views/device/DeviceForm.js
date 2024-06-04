@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from '../../styles/Form.module.css'
+import { URL_API } from "../../Const";
 
 function DeviceForm() {
     const [name, setName] = useState('');
@@ -50,7 +51,7 @@ function DeviceForm() {
         }
 
         // Buscar os gateways cadastrados
-        fetch('http://localhost:8081/gateway', {
+        fetch(`${URL_API}gateway`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -70,7 +71,7 @@ function DeviceForm() {
 
 
         if (id) {
-            fetch(`http://localhost:8081/dispositivo/${id}`, {
+            fetch(`${URL_API}dispositivo/${id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -159,7 +160,7 @@ function DeviceForm() {
                 return;
             }
     
-            const response = await fetch(`http://localhost:8081/dispositivo${id ? `/${id}` : ''}`, {
+            const response = await fetch(`${URL_API}dispositivo${id ? `/${id}` : ''}`, {
                 method: id ? 'PUT' : 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from '../../styles/Form.module.css'
+import { URL_API } from "../../Const";
 
 
 function GatewayForm() {
@@ -48,7 +49,7 @@ function GatewayForm() {
         setUserId(storedUserId);
 
         if (id) {
-            fetch(`http://localhost:8081/gateway/${id}`, {
+            fetch(`${URL_API}gateway/${id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -107,7 +108,7 @@ function GatewayForm() {
 
         try {
             const token = localStorage.getItem('jwtToken');
-            const response = await fetch(`http://localhost:8081/gateway${id ? `/${id}` : ''}`, {
+            const response = await fetch(`${URL_API}gateway${id ? `/${id}` : ''}`, {
                 method: id ? 'PUT' : 'POST',
                 headers: {
                     'Content-Type': 'application/json',
