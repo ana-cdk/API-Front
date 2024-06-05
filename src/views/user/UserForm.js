@@ -75,6 +75,9 @@ function UserForm() {
         if (!email.trim()) {
             setEmailError('Campo obrigatório');
             isValid = false;
+        } else if (!email.includes('@')) {
+            setEmailError('E-mail inválido');
+            isValid = false;
         } else {
             setEmailError('');
         }

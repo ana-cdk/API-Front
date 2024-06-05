@@ -57,7 +57,7 @@ function ActuatorForm() {
         }
 
         if (id) {
-            fetch(`http://localhost:8083/atuador/${id}`, {
+            fetch(`${URL_API}atuador/${id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -113,7 +113,7 @@ function ActuatorForm() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:8083/atuador${id ? `/${id}` : ''}`, {
+            const response = await fetch(`${URL_API}atuador${id ? `/${id}` : ''}`, {
                 method: id ? 'PUT' : 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ function ActuatorForm() {
                             type="text" 
                             id="name" 
                             name="name" 
-                            placeholder='Digite o nome do atuador...'
+                            placeholder='Digite o nome do atuador'
                             className={`${styles.formControl} ${nameError && styles.errorInput}`}
                             value={name} 
                             onChange={(e) => handleInputChange('name', e.target.value)}

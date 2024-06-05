@@ -8,6 +8,7 @@ import { URL_API } from "../../Const";
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(null); // Estado para armazenar a mensagem de erro
     const navigate = useNavigate();
 
     const handleLogin = async (event) => {
@@ -32,10 +33,9 @@ function Login() {
             }
 
             const result = await response.json();
-            console.log('Result from server:', result);  // Adicione este log
+            console.log('Result from server:', result);
             localStorage.setItem('jwtToken', result.token);
             localStorage.setItem('userId', result.userId);
-            
 
             setEmail('');
             setPassword('');
@@ -43,6 +43,7 @@ function Login() {
             navigate('/'); // Redireciona para a página inicial ou outra rota
         } catch (error) {
             console.error('Erro:', error.message);
+            setError('E-mail ou senha incorretos.'); // Define a mensagem de erro
         }
     };
 
@@ -54,6 +55,8 @@ function Login() {
                     <div id="form_header">
                         <h1>Login</h1>
                     </div>
+
+
 
                     <div id="social-media">
                         <a><FontAwesomeIcon icon={faFacebook}/></a>
@@ -84,41 +87,23 @@ function Login() {
                                 </div>
                             </label>
                         </fieldset>
-
+                        {error && (
+                        <div className="alert alert-danger" role="alert">
+                            {error}
+                        </div>
+                    )} 
                         
                     </div>
+
 
                     <div className="pagination justify-content-center mt-4">
                         <button type="submit" className="custom-button btn-cadastro">Login</button>
+
                     </div>
 
-                </form>   
+                </form>  
+
             </main>
-            
-
-
-
-            
-                    
-
-                    
-
-                    
-
-                        
-
-                        
-
-                      
-
-                        
-
-                    
-                
-
-
-
-
         </>
     );
 }

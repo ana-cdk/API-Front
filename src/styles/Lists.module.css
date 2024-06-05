@@ -39,3 +39,8 @@
 .deleteIcon {
     color: #dc3545;
 }
+
+.deleteIconReadings {
+    color: #dc3545;
+    padding-left: 1em;
+}

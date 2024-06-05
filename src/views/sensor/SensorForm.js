@@ -183,7 +183,7 @@ function SensorForm() {
 
                         <fieldset className={styles.formGroup}>
                             <label htmlFor="name" className="formLabel">Nome do sensor</label>
-                            <input type="text" id="name" name="name" maxlength="35" placeholder='Digite o nome do sensor... 45 '
+                            <input type="text" id="name" name="name" maxlength="35" placeholder='Digite o nome do sensor '
                                  className={`${styles.formControl} ${nameError && styles.errorInput}`}
                                 value={name} onChange={(e) => handleInputChange('name', e.target.value)}/>
                             <a className={styles.errorMessage}>{nameError}</a>
@@ -192,7 +192,7 @@ function SensorForm() {
                         <fieldset className={styles.formGroup}>
                             <label htmlFor="type" className="formLabel">Tipo</label>
                             <input type="text" id="type" name="type"
-                                className={`${styles.formControl} ${typeError && styles.errorInput}`} placeholder='Informe o tipo do sensor...'
+                                className={`${styles.formControl} ${typeError && styles.errorInput}`} placeholder='Informe o tipo do sensor'
                                 value={type} onChange={(e) => handleInputChange('type', e.target.value)} /> 
                             <a className={styles.errorMessage}>{typeError}</a>
                         </fieldset>

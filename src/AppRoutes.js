@@ -36,6 +36,7 @@ const AppRoutes = () => {
             <Route path="/sensor/:id" element={<SensorForm />}></Route>
             <Route path="/sensor/:idSensor/readings" element={<SensorReadings />} />
             <Route path="/sensor/:idSensor/readings/new" element={<AddReading />} />
+            <Route path="/sensor/:idSensor/readings/:id" element={<AddReading />} />
         </Routes>
     );
 }

@@ -76,7 +76,7 @@
 
 .form-label{
     color: var(--color-neutral-40);
-    padding-bottom: 1.5rem;
+    padding-bottom: 1rem;
 }
 
 .custom-input { 
@@ -124,7 +124,8 @@
 .error-message {
     color: red;
     font-size: 12px;
-    margin-top: 4px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .error {
